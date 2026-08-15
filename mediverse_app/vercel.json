@@ -1,7 +1,7 @@
 {
   "headers": [
     {
-      "source": "/MediVerse.apk",
+      "source": "/MediVerse-v1.0-Release.apk",
       "headers": [
         {
           "key": "Content-Type",
@@ -9,7 +9,7 @@
         },
         {
           "key": "Content-Disposition",
-          "value": "attachment; filename=\"MediVerse.apk\""
+          "value": "attachment; filename=\"MediVerse-v1.0-Release.apk\""
         }
       ]
     }
