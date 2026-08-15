@@ -1,0 +1,466 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MediVerse — Healthcare & Emergency Platform</title>
+    <link rel="manifest" href="/manifest.json">
+    <meta name="theme-color" content="#0D9488">
+    <meta name="mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <meta name="apple-mobile-web-app-title" content="MediVerse">
+    <link rel="apple-touch-icon" href="/assets/logo.png">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="/style.css">
+</head>
+<body>
+    <!-- Top Nav Header -->
+    <header class="navbar">
+        <div class="nav-container">
+            <div class="brand">
+                <div class="brand-icon">
+                    <i class="fa-solid fa-heart-pulse"></i>
+                </div>
+                <div class="brand-text">
+                    <span class="brand-name">MediVerse</span>
+                    <span class="brand-tag">Healthcare Platform</span>
+                </div>
+            </div>
+
+            <nav class="nav-links">
+                <a href="#home" class="nav-link active" data-tab="home"><i class="fa-solid fa-house"></i> Home</a>
+                <a href="#doctors" class="nav-link" data-tab="doctors"><i class="fa-solid fa-user-doctor"></i> Find Doctors</a>
+                <a href="#donors" class="nav-link" data-tab="donors"><i class="fa-solid fa-droplet"></i> Blood & SOS</a>
+                <a href="#hospitals" class="nav-link" data-tab="hospitals"><i class="fa-solid fa-hospital"></i> Clinics</a>
+                <a href="#admin" class="nav-link" data-tab="admin"><i class="fa-solid fa-chart-line"></i> Admin Panel</a>
+            </nav>
+
+            <div class="nav-auth">
+                <button id="download-app-btn" class="btn btn-secondary btn-sm" onclick="openDownloadAppModal()">
+                    <i class="fa-solid fa-mobile-screen-button text-teal"></i> Install Mobile App
+                </button>
+                <div id="user-profile-widget" class="hidden">
+                    <span id="user-name-display" class="user-badge"></span>
+                    <button id="logout-btn" class="btn btn-sm btn-ghost"><i class="fa-solid fa-right-from-bracket"></i> Logout</button>
+                </div>
+                <button id="open-login-btn" class="btn btn-primary">
+                    <i class="fa-solid fa-user-check"></i> Sign In / Register
+                </button>
+            </div>
+        </div>
+    </header>
+
+    <!-- Main Content Container -->
+    <main class="container">
+        <!-- Toast Banner -->
+        <div id="toast-container" class="toast-container"></div>
+
+        <!-- HERO SECTION -->
+        <section id="tab-home" class="tab-content active">
+            <div class="hero-card">
+                <div class="hero-badge"><i class="fa-solid fa-shield-halved"></i> 24/7 Smart Health & Emergency Network</div>
+                <h1 class="hero-title">Integrated Emergency Care, Doctor Booking & Blood Matching</h1>
+                <p class="hero-desc">Connecting patients with verified specialists, real-time blood donors, and immediate SOS response routing.</p>
+                
+                <div class="hero-actions">
+                    <button class="btn btn-sos btn-lg" onclick="switchTab('donors')">
+                        <i class="fa-solid fa-triangle-exclamation"></i> Trigger Emergency SOS
+                    </button>
+                    <button class="btn btn-secondary btn-lg" onclick="switchTab('doctors')">
+                        <i class="fa-solid fa-calendar-check"></i> Book Doctor Consultation
+                    </button>
+                </div>
+
+                <!-- Stats Bar -->
+                <div class="stats-grid">
+                    <div class="stat-card">
+                        <div class="stat-icon teal"><i class="fa-solid fa-user-doctor"></i></div>
+                        <div class="stat-data">
+                            <h3 id="stat-doctors-count">3+</h3>
+                            <p>Verified Doctors</p>
+                        </div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-icon red"><i class="fa-solid fa-droplet"></i></div>
+                        <div class="stat-data">
+                            <h3 id="stat-donors-count">3+</h3>
+                            <p>Active Donors</p>
+                        </div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-icon blue"><i class="fa-solid fa-hospital"></i></div>
+                        <div class="stat-data">
+                            <h3 id="stat-hospitals-count">3+</h3>
+                            <p>Partner Hospitals</p>
+                        </div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-icon amber"><i class="fa-solid fa-clock"></i></div>
+                        <div class="stat-data">
+                            <h3>&lt; 15 min</h3>
+                            <p>Avg SOS Response</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Quick Access Sections -->
+            <div class="grid-2">
+                <div class="card glass-card">
+                    <div class="card-header">
+                        <h2><i class="fa-solid fa-stethoscope"></i> Featured Specialists</h2>
+                        <a href="#doctors" onclick="switchTab('doctors')" class="link">View All &rarr;</a>
+                    </div>
+                    <div id="featured-doctors-list" class="mini-list">
+                        <!-- Loaded dynamically -->
+                    </div>
+                </div>
+
+                <div class="card glass-card">
+                    <div class="card-header">
+                        <h2><i class="fa-solid fa-truck-medical"></i> Nearby Blood Donors</h2>
+                        <a href="#donors" onclick="switchTab('donors')" class="link">Search Donors &rarr;</a>
+                    </div>
+                    <div id="featured-donors-list" class="mini-list">
+                        <!-- Loaded dynamically -->
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- DOCTORS TAB -->
+        <section id="tab-doctors" class="tab-content">
+            <div class="section-header">
+                <div>
+                    <h2><i class="fa-solid fa-user-doctor"></i> Find & Book Doctors</h2>
+                    <p>Schedule consultations with experienced healthcare specialists.</p>
+                </div>
+                <div class="filter-bar">
+                    <select id="doctor-spec-filter" class="form-select" onchange="loadDoctors()">
+                        <option value="All">All Specialties</option>
+                        <option value="Cardiologist">Cardiology</option>
+                        <option value="Neurologist">Neurology</option>
+                        <option value="General Physician">General Physician</option>
+                    </select>
+                </div>
+            </div>
+
+            <div id="doctors-grid" class="cards-grid">
+                <!-- Loaded dynamically -->
+            </div>
+        </section>
+
+        <!-- BLOOD & SOS TAB -->
+        <section id="tab-donors" class="tab-content">
+            <div class="sos-banner">
+                <div class="sos-info">
+                    <h2><i class="fa-solid fa-triangle-exclamation"></i> Emergency Blood Request & SOS</h2>
+                    <p>Broadcast an instant notification to all compatible blood donors nearby.</p>
+                </div>
+                <button class="btn btn-sos btn-lg" onclick="openSOSModal()">
+                    <i class="fa-solid fa-bullhorn"></i> Broadcast Emergency SOS
+                </button>
+            </div>
+
+            <div class="section-header">
+                <h3><i class="fa-solid fa-droplet"></i> Available Blood Donors</h3>
+                <div class="filter-chips">
+                    <span class="chip active" onclick="filterDonors('all')">All Groups</span>
+                    <span class="chip" onclick="filterDonors('O+')">O+</span>
+                    <span class="chip" onclick="filterDonors('A-')">A-</span>
+                    <span class="chip" onclick="filterDonors('B+')">B+</span>
+                </div>
+            </div>
+
+            <div id="donors-grid" class="cards-grid">
+                <!-- Loaded dynamically -->
+            </div>
+        </section>
+
+        <!-- HOSPITALS TAB -->
+        <section id="tab-hospitals" class="tab-content">
+            <div class="section-header">
+                <h2><i class="fa-solid fa-hospital"></i> Network Hospitals & Medical Centers</h2>
+                <p>24/7 trauma centers and general clinics registered with MediVerse.</p>
+            </div>
+
+            <div id="hospitals-grid" class="cards-grid">
+                <!-- Loaded dynamically -->
+            </div>
+        </section>
+
+        <!-- ADMIN TAB -->
+        <section id="tab-admin" class="tab-content">
+            <div class="section-header">
+                <h2><i class="fa-solid fa-chart-pie"></i> Platform Administration Dashboard</h2>
+                <p>System metrics, active SOS broadcasts, and user management.</p>
+            </div>
+
+            <div class="admin-stats-grid">
+                <div class="stat-card glass">
+                    <h3>Registered Users</h3>
+                    <div class="stat-value" id="admin-stat-users">9</div>
+                    <span class="badge badge-success">+100% Active</span>
+                </div>
+                <div class="stat-card glass">
+                    <h3>Active SOS Alerts</h3>
+                    <div class="stat-value" id="admin-stat-sos">1</div>
+                    <span class="badge badge-warning">High Priority</span>
+                </div>
+                <div class="stat-card glass">
+                    <h3>Appointments</h3>
+                    <div class="stat-value" id="admin-stat-appointments">3</div>
+                    <span class="badge badge-info">Scheduled</span>
+                </div>
+                <div class="stat-card glass">
+                    <h3>API Gateway</h3>
+                    <div class="stat-value text-emerald">ONLINE</div>
+                    <span class="badge badge-success">Production Gateway</span>
+                </div>
+            </div>
+
+            <div class="card glass-card margin-top">
+                <h3><i class="fa-solid fa-list-check"></i> System Logs & Activity Trace</h3>
+                <div class="log-box" id="admin-log-box">
+                    <div class="log-line">[SYSTEM] MediVerse Frontend Engine initialized.</div>
+                    <div class="log-line">[AUTH] Google OAuth / Gmail Authentication active.</div>
+                    <div class="log-line">[API] Connected to deployed backend: https://backend-blod.onrender.com/api</div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- AUTH MODAL -->
+    <div id="auth-modal" class="modal">
+        <div class="modal-content glass-card">
+            <div class="modal-header">
+                <h3><i class="fa-solid fa-user-shield"></i> MediVerse Account Sign In</h3>
+                <span class="close-modal" onclick="closeAuthModal()">&times;</span>
+            </div>
+            
+            <div class="modal-body">
+                <!-- GOOGLE SIGN-IN BUTTON WITH OFFICIAL GOOGLE LOGO -->
+                <button id="google-login-btn" class="btn btn-google btn-full">
+                    <svg class="google-icon" viewBox="0 0 24 24" width="22" height="22">
+                        <path fill="#4285F4" d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z"/>
+                        <path fill="#34A853" d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z"/>
+                        <path fill="#FBBC05" d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.06H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.94l2.85-2.22.81-.63z"/>
+                        <path fill="#EA4335" d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.06l3.66 2.84c.87-2.6 3.3-4.52 6.16-4.52z"/>
+                    </svg>
+                    <span>Sign in with Google / Gmail</span>
+                </button>
+
+                <div class="divider-text"><span>OR USE EMAIL</span></div>
+
+                <form id="login-form" onsubmit="handleEmailLogin(event)">
+                    <div class="form-group">
+                        <label>Email Address</label>
+                        <input type="email" id="login-email" class="form-input" placeholder="patient@mediverse.com" required>
+                    </div>
+                    <div class="form-group">
+                        <label>Password</label>
+                        <input type="password" id="login-password" class="form-input" placeholder="••••••••" required>
+                    </div>
+                    <button type="submit" class="btn btn-primary btn-full margin-top-sm">
+                        <i class="fa-solid fa-right-to-bracket"></i> Sign In with Email
+                    </button>
+                </form>
+
+                <div class="demo-section">
+                    <p class="demo-title">Quick One-Click Demo Accounts:</p>
+                    <div class="demo-chips">
+                        <button class="btn btn-chip" onclick="fillAndLogin('patient@mediverse.com', 'password123')">
+                            <i class="fa-solid fa-user text-blue"></i> Patient Demo
+                        </button>
+                        <button class="btn btn-chip" onclick="fillAndLogin('sarah@mediverse.com', 'password123')">
+                            <i class="fa-solid fa-user-doctor text-teal"></i> Doctor Demo
+                        </button>
+                        <button class="btn btn-chip" onclick="fillAndLogin('michael@mediverse.com', 'password123')">
+                            <i class="fa-solid fa-droplet text-red"></i> Donor Demo
+                        </button>
+                        <button class="btn btn-chip" onclick="fillAndLogin('admin@mediverse.com', 'password123')">
+                            <i class="fa-solid fa-shield text-purple"></i> Admin Demo
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- GOOGLE AUTH DIALOG MODAL -->
+    <div id="google-dialog-modal" class="modal">
+        <div class="modal-content glass-card">
+            <div class="modal-header">
+                <div class="google-header-title">
+                    <svg class="google-icon" viewBox="0 0 24 24" width="24" height="24">
+                        <path fill="#4285F4" d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z"/>
+                        <path fill="#34A853" d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z"/>
+                        <path fill="#FBBC05" d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.06H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.94l2.85-2.22.81-.63z"/>
+                        <path fill="#EA4335" d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.06l3.66 2.84c.87-2.6 3.3-4.52 6.16-4.52z"/>
+                    </svg>
+                    <h3>Google Account Authentication</h3>
+                </div>
+                <span class="close-modal" onclick="closeGoogleModal()">&times;</span>
+            </div>
+
+            <div class="modal-body">
+                <p class="text-muted">Sign in to MediVerse using your Google / Gmail credentials:</p>
+                <form id="google-auth-form" onsubmit="handleGoogleAuthSubmit(event)">
+                    <div class="form-group">
+                        <label>Gmail Address</label>
+                        <input type="email" id="google-email-input" class="form-input" value="patient.google@gmail.com" required>
+                    </div>
+                    <div class="form-group">
+                        <label>Full Name</label>
+                        <input type="text" id="google-name-input" class="form-input" value="Google Patient User" required>
+                    </div>
+                    <div class="form-group">
+                        <label>Account Role</label>
+                        <select id="google-role-select" class="form-select">
+                            <option value="patient">Patient / Care Seeker</option>
+                            <option value="donor">Blood Donor</option>
+                            <option value="doctor">Medical Doctor</option>
+                        </select>
+                    </div>
+                    <button type="submit" class="btn btn-google btn-full margin-top-sm">
+                        <i class="fa-solid fa-check-circle"></i> Authenticate & Continue
+                    </button>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <!-- BOOKING APPOINTMENT MODAL -->
+    <div id="booking-modal" class="modal">
+        <div class="modal-content glass-card">
+            <div class="modal-header">
+                <h3><i class="fa-solid fa-calendar-plus"></i> Book Consultation</h3>
+                <span class="close-modal" onclick="closeBookingModal()">&times;</span>
+            </div>
+            <div class="modal-body">
+                <div id="booking-doctor-info" class="doc-summary-badge"></div>
+                <form id="booking-form" onsubmit="handleBookingSubmit(event)">
+                    <input type="hidden" id="booking-doctor-id">
+                    <div class="form-group">
+                        <label>Preferred Date</label>
+                        <input type="date" id="booking-date" class="form-input" required>
+                    </div>
+                    <div class="form-group">
+                        <label>Select Time Slot</label>
+                        <select id="booking-slot" class="form-select" required>
+                            <option value="09:00 AM">09:00 AM</option>
+                            <option value="10:30 AM">10:30 AM</option>
+                            <option value="02:00 PM">02:00 PM</option>
+                            <option value="04:30 PM">04:30 PM</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label>Reason for Visit</label>
+                        <textarea id="booking-reason" class="form-input" rows="3" placeholder="Describe symptoms or routine checkup reason..." required></textarea>
+                    </div>
+                    <button type="submit" class="btn btn-primary btn-full">
+                        <i class="fa-solid fa-check"></i> Confirm Appointment
+                    </button>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <!-- EMERGENCY SOS MODAL -->
+    <div id="sos-modal" class="modal">
+        <div class="modal-content glass-card border-red">
+            <div class="modal-header">
+                <h3 class="text-red"><i class="fa-solid fa-triangle-exclamation"></i> Emergency Blood Broadcast</h3>
+                <span class="close-modal" onclick="closeSOSModal()">&times;</span>
+            </div>
+            <div class="modal-body">
+                <p class="text-muted">An urgent alert will be broadcasted to registered blood donors within 10km.</p>
+                <form id="sos-form" onsubmit="handleSOSSubmit(event)">
+                    <div class="form-group">
+                        <label>Required Blood Group</label>
+                        <select id="sos-blood-group" class="form-select" required>
+                            <option value="A+">A+</option>
+                            <option value="A-">A-</option>
+                            <option value="B+">B+</option>
+                            <option value="B-">B-</option>
+                            <option value="O+">O+</option>
+                            <option value="O-">O-</option>
+                            <option value="AB+">AB+</option>
+                            <option value="AB-">AB-</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label>Urgency Level</label>
+                        <select id="sos-urgency" class="form-select">
+                            <option value="critical">CRITICAL (Immediate IC Hospitalization)</option>
+                            <option value="high">HIGH (Required within 4 hours)</option>
+                            <option value="moderate">MODERATE (Required within 24 hours)</option>
+                        </select>
+                    </div>
+                    <button type="submit" class="btn btn-sos btn-full margin-top-sm">
+                        <i class="fa-solid fa-paper-plane"></i> Broadcast Emergency Alert Now
+                    </button>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <!-- DOCTOR DETAILS & CERTIFICATES MODAL -->
+    <div id="doctor-details-modal" class="modal">
+        <div class="modal-content glass-card modal-lg">
+            <div class="modal-header">
+                <h3><i class="fa-solid fa-user-doctor text-teal"></i> Doctor Credentials & Verified Certificates</h3>
+                <span class="close-modal" onclick="closeDoctorDetailsModal()">&times;</span>
+            </div>
+            <div class="modal-body" id="doctor-details-modal-body">
+                <!-- Loaded dynamically -->
+            </div>
+        </div>
+    </div>
+
+    <!-- DOWNLOAD MOBILE APP MODAL -->
+    <div id="download-app-modal" class="modal">
+        <div class="modal-content glass-card">
+            <div class="modal-header">
+                <h3><i class="fa-solid fa-mobile-screen-button text-teal"></i> Download & Install MediVerse App</h3>
+                <span class="close-modal" onclick="closeDownloadAppModal()">&times;</span>
+            </div>
+            <div class="modal-body">
+                <div class="pwa-install-box text-center">
+                    <img src="/assets/logo.png" alt="MediVerse App Icon" style="width:72px; height:72px; border-radius:18px; margin-bottom:12px;">
+                    <h3>MediVerse Healthcare Platform</h3>
+                    <p class="text-muted" style="font-size:13px; margin: 8px 0 16px;">Download and install the full application directly onto your mobile phone screen.</p>
+                    
+                    <button id="trigger-pwa-install-btn" class="btn btn-primary btn-full btn-lg margin-bottom-sm" onclick="triggerPWAInstall()">
+                        <i class="fa-solid fa-download"></i> Install App on Phone Now
+                    </button>
+                </div>
+
+                <div class="instructions-section margin-top">
+                    <h4><i class="fa-solid fa-circle-info text-blue"></i> How to Install on Mobile Devices:</h4>
+                    <div class="step-list" style="font-size:13px; margin-top:8px; line-height:1.6;">
+                        <p><strong>Android (Chrome Browser):</strong></p>
+                        <ol style="margin-left:20px; margin-bottom:12px;">
+                            <li>Tap the <strong>3 Dots Menu (⋮)</strong> in the top right corner of Chrome.</li>
+                            <li>Select <strong>"Install app"</strong> or <strong>"Add to Home screen"</strong>.</li>
+                            <li>Confirm installation — MediVerse will appear as a native app on your phone!</li>
+                        </ol>
+                        <p><strong>iOS / iPhone (Safari Browser):</strong></p>
+                        <ol style="margin-left:20px;">
+                            <li>Tap the <strong>Share Icon (⎋)</strong> at the bottom of Safari.</li>
+                            <li>Scroll down and tap <strong>"Add to Home Screen"</strong>.</li>
+                            <li>Tap <strong>Add</strong> in the top right corner.</li>
+                        </ol>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="/app.js"></script>
+</body>
+</html>
