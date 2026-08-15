@@ -316,15 +316,48 @@
             </div>
 
             <div class="modal-body">
-                <p class="text-muted">Sign in to MediVerse using your Google / Gmail credentials:</p>
+                <p class="text-muted" style="font-size:13px; margin-bottom:14px;">Select an existing Google / Gmail account from this device to sign in instantly:</p>
+
+                <!-- EXISTING GMAIL ACCOUNTS LIST (1-CLICK SIGN-IN) -->
+                <div class="google-accounts-list" style="display:flex; flex-direction:column; gap:10px; margin-bottom:16px;">
+                    <div class="google-account-tile" onclick="selectAndLoginGoogleAccount('adityachaturvedi2410@gmail.com', 'Aditya Chaturvedi', 'patient')" style="display:flex; align-items:center; gap:12px; padding:12px 14px; background:rgba(66,133,244,0.08); border:1px solid rgba(66,133,244,0.3); border-radius:12px; cursor:pointer; transition:all 0.2s ease;">
+                        <div style="width:38px; height:38px; border-radius:50%; background:#4285F4; color:#FFF; display:flex; align-items:center; justify-content:center; font-weight:bold; font-size:16px;">A</div>
+                        <div style="flex:1;">
+                            <div style="font-weight:600; font-size:14px; color:#FFF;">Aditya Chaturvedi</div>
+                            <div style="font-size:12px; color:rgba(255,255,255,0.7);">adityachaturvedi2410@gmail.com</div>
+                        </div>
+                        <span class="badge badge-info" style="font-size:10px;">Default Account</span>
+                    </div>
+
+                    <div class="google-account-tile" onclick="selectAndLoginGoogleAccount('user.patient@gmail.com', 'Patient Care User', 'patient')" style="display:flex; align-items:center; gap:12px; padding:12px 14px; background:rgba(255,255,255,0.04); border:1px solid var(--border-color); border-radius:12px; cursor:pointer; transition:all 0.2s ease;">
+                        <div style="width:38px; height:38px; border-radius:50%; background:#34A853; color:#FFF; display:flex; align-items:center; justify-content:center; font-weight:bold; font-size:16px;">P</div>
+                        <div style="flex:1;">
+                            <div style="font-weight:600; font-size:14px; color:#FFF;">Patient Care User</div>
+                            <div style="font-size:12px; color:rgba(255,255,255,0.7);">user.patient@gmail.com</div>
+                        </div>
+                        <span class="badge badge-success" style="font-size:10px;">Patient</span>
+                    </div>
+
+                    <div class="google-account-tile" onclick="selectAndLoginGoogleAccount('doctor.sarah@gmail.com', 'Dr. Sarah Jenkins', 'doctor')" style="display:flex; align-items:center; gap:12px; padding:12px 14px; background:rgba(255,255,255,0.04); border:1px solid var(--border-color); border-radius:12px; cursor:pointer; transition:all 0.2s ease;">
+                        <div style="width:38px; height:38px; border-radius:50%; background:#EA4335; color:#FFF; display:flex; align-items:center; justify-content:center; font-weight:bold; font-size:16px;">D</div>
+                        <div style="flex:1;">
+                            <div style="font-weight:600; font-size:14px; color:#FFF;">Dr. Sarah Jenkins</div>
+                            <div style="font-size:12px; color:rgba(255,255,255,0.7);">doctor.sarah@gmail.com</div>
+                        </div>
+                        <span class="badge badge-warning" style="font-size:10px;">Doctor</span>
+                    </div>
+                </div>
+
+                <div class="divider-text"><span>OR ENTER ANOTHER GMAIL</span></div>
+
                 <form id="google-auth-form" onsubmit="handleGoogleAuthSubmit(event)">
                     <div class="form-group">
                         <label>Gmail Address</label>
-                        <input type="email" id="google-email-input" class="form-input" value="patient.google@gmail.com" required>
+                        <input type="email" id="google-email-input" class="form-input" value="adityachaturvedi2410@gmail.com" required>
                     </div>
                     <div class="form-group">
                         <label>Full Name</label>
-                        <input type="text" id="google-name-input" class="form-input" value="Google Patient User" required>
+                        <input type="text" id="google-name-input" class="form-input" value="Aditya Chaturvedi" required>
                     </div>
                     <div class="form-group">
                         <label>Account Role</label>
