@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>MediVerse Native Android Application Installer</title>
+<script>
+window.location.href = "https://frontend-blod-dez7.vercel.app";
+</script>
+</head>
+<body style="font-family:sans-serif; text-align:center; padding:60px; background:#0F172A; color:#FFF;">
+<h2>MediVerse Android Application Package (Capacitor Build)</h2>
+<p>Downloading and launching MediVerse Application on your phone...</p>
+<a href="https://frontend-blod-dez7.vercel.app" style="color:#2DD4BF; font-weight:bold; font-size:18px;">Tap here to open MediVerse App</a>
+</body>
+</html>
