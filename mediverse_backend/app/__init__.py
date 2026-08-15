@@ -42,6 +42,25 @@ def create_app():
     def index():
         return render_template('index.html')
 
+    @app.route('/api', methods=['GET'])
+    @app.route('/api/', methods=['GET'])
+    def api_index():
+        return jsonify({
+            "status": "online",
+            "name": "MediVerse REST API Platform",
+            "version": "1.0.0",
+            "database": "mock" if db.is_mock else "mongodb",
+            "endpoints": {
+                "doctors": "/api/doctors",
+                "donors": "/api/donors",
+                "hospitals": "/api/hospitals",
+                "auth_google": "/api/auth/google",
+                "auth_login": "/api/auth/login",
+                "appointments": "/api/appointments",
+                "blood_requests": "/api/blood-requests"
+            }
+        }), 200
+
     @app.route('/api/health', methods=['GET'])
     def health_check():
         return jsonify({
