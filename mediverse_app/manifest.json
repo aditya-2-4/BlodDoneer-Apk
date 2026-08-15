@@ -1,12 +1,12 @@
 {
-  "name": "MediVerse Healthcare Platform",
+  "name": "MediVerse Healthcare",
   "short_name": "MediVerse",
-  "description": "Integrated Emergency Care, Doctor Booking & Blood Matching Platform",
+  "description": "Smart Healthcare and Emergency Assistance Platform",
   "start_url": "/",
   "display": "standalone",
-  "orientation": "portrait",
-  "background_color": "#0B0F19",
+  "background_color": "#0F172A",
   "theme_color": "#0D9488",
+  "orientation": "portrait",
   "icons": [
     {
       "src": "/assets/logo.png",
