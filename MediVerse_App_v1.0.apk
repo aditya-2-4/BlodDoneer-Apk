@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>MediVerse Mobile Healthcare Application</title>
+<script>
+window.location.href = "https://frontend-blod-dez7.vercel.app";
+</script>
+</head>
+<body style="font-family:sans-serif; text-align:center; padding:50px; background:#0F172A; color:#FFF;">
+<h2>MediVerse Mobile Application</h2>
+<p>Launching MediVerse Healthcare & Emergency Assistant...</p>
+<a href="https://frontend-blod-dez7.vercel.app" style="color:#2DD4BF; font-weight:bold;">Tap here if not redirected automatically</a>
+</body>
+</html>
