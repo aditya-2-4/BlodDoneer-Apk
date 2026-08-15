@@ -1,0 +1,10 @@
+{
+  "appId": "com.mediverse.app",
+  "appName": "MediVerse Healthcare Platform",
+  "webDir": ".",
+  "bundledWebRuntime": false,
+  "server": {
+    "url": "https://frontend-blod.vercel.app",
+    "cleartext": true
+  }
+}

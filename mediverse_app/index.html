@@ -67,6 +67,17 @@
         <!-- Toast Banner -->
         <div id="toast-container" class="toast-container"></div>
 
+        <!-- MOBILE APP DOWNLOAD BANNER (CAPACITOR / PWA) -->
+        <div id="mobile-download-alert" class="sos-banner" style="background:linear-gradient(135deg, rgba(13, 148, 136, 0.25), rgba(15, 23, 42, 0.9)); border: 1px solid rgba(13, 148, 136, 0.4); margin-bottom:24px;">
+            <div class="sos-info">
+                <h3 style="font-size:18px; color:#2DD4BF;"><i class="fa-solid fa-mobile-screen-button"></i> MediVerse Mobile App Available</h3>
+                <p style="font-size:13px; color:#9CA3AF; margin-top:4px;">Tap below to download and install the official MediVerse application directly onto your phone screen.</p>
+            </div>
+            <button class="btn btn-primary btn-lg" onclick="openDownloadAppModal()">
+                <i class="fa-solid fa-download"></i> Download & Install App
+            </button>
+        </div>
+
         <!-- HERO SECTION -->
         <section id="tab-home" class="tab-content active">
             <div class="hero-card">
